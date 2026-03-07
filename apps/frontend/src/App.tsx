@@ -1,10 +1,10 @@
 import { DashboardLayout } from "./layouts/dashboard-layout"
-import { DashboardPage } from "./pages/dashboard"
+import { BrandsPage } from "./pages/brands"
 
 function App() {
   return (
     <DashboardLayout>
-      <DashboardPage />
+      <BrandsPage />
     </DashboardLayout>
   )
 }
