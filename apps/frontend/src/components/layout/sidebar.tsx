@@ -1,4 +1,5 @@
 import { Home, BarChart3, Calendar, Sparkles } from "lucide-react"
+import { Link } from "react-router-dom"
 
 export function Sidebar() {
   return (
@@ -10,25 +11,37 @@ export function Sidebar() {
 
       <nav className="flex flex-col gap-4 text-sm">
 
-        <a className="flex items-center gap-3 text-gray-700 hover:text-black cursor-pointer">
+        <Link
+          to="/"
+          className="flex items-center gap-3 text-gray-700 hover:text-black"
+        >
           <Home size={18} />
           Dashboard
-        </a>
+        </Link>
 
-        <a className="flex items-center gap-3 text-gray-700 hover:text-black cursor-pointer">
+        <Link
+          to="/brands"
+          className="flex items-center gap-3 text-gray-700 hover:text-black"
+        >
           <Sparkles size={18} />
-          AI Insights
-        </a>
+          Brands
+        </Link>
 
-        <a className="flex items-center gap-3 text-gray-700 hover:text-black cursor-pointer">
+        <Link
+          to="/calendar"
+          className="flex items-center gap-3 text-gray-700 hover:text-black"
+        >
           <Calendar size={18} />
           Calendar
-        </a>
+        </Link>
 
-        <a className="flex items-center gap-3 text-gray-700 hover:text-black cursor-pointer">
+        <Link
+          to="/analytics"
+          className="flex items-center gap-3 text-gray-700 hover:text-black"
+        >
           <BarChart3 size={18} />
           Analytics
-        </a>
+        </Link>
 
       </nav>
 

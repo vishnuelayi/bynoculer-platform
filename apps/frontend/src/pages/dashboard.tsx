@@ -1,20 +1,18 @@
 import { Card } from "@/components/ui/card"
+import { AIInsightCard } from "@/components/dashboard/ai-insight-card"
+import { ActivityFeed } from "@/components/dashboard/activity-feed"
 
 export function DashboardPage() {
   return (
     <div className="grid grid-cols-3 gap-6">
 
-      <Card className="p-6">
-        AI Insights
-      </Card>
+      <AIInsightCard />
 
       <Card className="p-6">
         Campaign Performance
       </Card>
 
-      <Card className="p-6">
-        Upcoming Posts
-      </Card>
+      <ActivityFeed />
 
     </div>
   )

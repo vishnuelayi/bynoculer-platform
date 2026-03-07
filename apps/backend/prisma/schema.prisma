@@ -8,8 +8,21 @@ datasource db {
 }
 
 model Brand {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   name        String
   description String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime   @default(now())
+
+  campaigns   Campaign[]
+}
+
+model Campaign {
+  id        String   @id @default(uuid())
+  name      String
+  status    String   @default("draft")
+
+  brandId   String
+  brand     Brand    @relation(fields: [brandId], references: [id])
+
+  createdAt DateTime @default(now())
 }
