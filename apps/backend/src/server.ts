@@ -3,6 +3,7 @@ import cors from "cors";
 import healthRoutes from "./routes/health.routes";
 import brandRoutes from "./routes/brand.routes";
 import campaignRoutes from "./routes/campaign.routes"
+import postRoutes from "./routes/post.routes"
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use("/", healthRoutes);
 app.use("/api", brandRoutes);
 app.use("/api/campaigns", campaignRoutes)
+app.use("/api/posts", postRoutes)
 
 const PORT = 4000;
 

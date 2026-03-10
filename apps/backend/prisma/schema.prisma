@@ -24,5 +24,19 @@ model Campaign {
   brandId   String
   brand     Brand    @relation(fields: [brandId], references: [id])
 
+  posts     Post[]
+
   createdAt DateTime @default(now())
+}
+
+model Post {
+  id          String   @id @default(uuid())
+  content     String
+  platform    String
+  scheduledAt DateTime?
+
+  campaignId  String
+  campaign    Campaign @relation(fields: [campaignId], references: [id])
+
+  createdAt   DateTime @default(now())
 }
