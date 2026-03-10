@@ -4,6 +4,7 @@ import { DashboardPage } from "./pages/dashboard"
 import { BrandsPage } from "./pages/brands"
 import { CampaignsPage } from "./pages/campaigns"
 import { CalendarPage } from "./pages/calendar"
+import { PostsPage } from "./pages/posts"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/brands" element={<BrandsPage />} />
           <Route path="/campaigns" element={<CampaignsPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/posts" element={<PostsPage />} />
         </Routes>
       </DashboardLayout>
     </BrowserRouter>

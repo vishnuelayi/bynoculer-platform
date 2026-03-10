@@ -1,4 +1,4 @@
-import { Home, BarChart3, Calendar, Sparkles } from "lucide-react";
+import { Home, BarChart3, Calendar, Sparkles, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function Sidebar() {
@@ -21,6 +21,14 @@ export function Sidebar() {
         >
           <Sparkles size={18} />
           Brands
+        </Link>
+
+        <Link
+          to="/posts"
+          className="flex items-center gap-3 text-gray-700 hover:text-black"
+        >
+          <FileText size={18} />
+          Post
         </Link>
 
         <Link
