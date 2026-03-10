@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { createPost, getPostsByCampaign } from "../services/post.service"
+import { createPost, getPosts} from "../services/post.service"
 
 export async function createPostHandler(req: Request, res: Response) {
   try {
@@ -19,17 +19,13 @@ export async function createPostHandler(req: Request, res: Response) {
 }
 
 export async function getPostsHandler(req: Request, res: Response) {
-  try {
-    const { campaignId } = req.query
-
-    if (!campaignId) {
-      return res.status(400).json({ error: "campaignId is required" })
+    try {
+      const { campaignId } = req.query
+  
+      const posts = await getPosts(campaignId as string | undefined)
+  
+      res.json(posts)
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch posts" })
     }
-
-    const posts = await getPostsByCampaign(String(campaignId))
-
-    res.json(posts)
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch posts" })
   }
-}

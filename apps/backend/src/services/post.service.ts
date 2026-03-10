@@ -13,13 +13,11 @@ export async function createPost(data: {
   })
 }
 
-export async function getPostsByCampaign(campaignId: string) {
-  return prisma.post.findMany({
-    where: {
-      campaignId,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  })
-}
+export async function getPosts(campaignId?: string) {
+    return prisma.post.findMany({
+      where: campaignId ? { campaignId } : {},
+      orderBy: {
+        scheduledAt: "asc",
+      },
+    })
+  }
