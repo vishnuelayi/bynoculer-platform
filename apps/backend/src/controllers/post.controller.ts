@@ -19,13 +19,14 @@ export async function createPostHandler(req: Request, res: Response) {
 }
 
 export async function getPostsHandler(req: Request, res: Response) {
-    try {
-      const { campaignId } = req.query
-  
-      const posts = await getPosts(campaignId as string | undefined)
-  
-      res.json(posts)
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch posts" })
-    }
-  }
+
+  const { brandId, campaignId } = req.query
+
+  const posts = await getPosts({
+    brandId: brandId as string | undefined,
+    campaignId: campaignId as string | undefined
+  })
+
+  res.json(posts)
+
+}

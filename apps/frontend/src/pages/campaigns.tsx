@@ -4,66 +4,43 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AIStrategistCard } from "@/components/campaign/ai-strategist-card";
-import { AIPostGenerator } from "@/components/campaign/ai-post-generator";
+import { useBrand } from "@/context/brand-context";
 
 export function CampaignsPage() {
-  const [brands, setBrands] = useState<any[]>([]);
+  const { activeBrand } = useBrand();
+
   const [campaigns, setCampaigns] = useState<any[]>([]);
-  const [brandId, setBrandId] = useState("");
   const [name, setName] = useState("");
 
-  const fetchBrands = async () => {
-    const res = await api.get("/brands");
-    setBrands(res.data);
+  const fetchCampaigns = async () => {
+    if (!activeBrand) return;
 
-    if (res.data.length > 0) {
-      setBrandId(res.data[0].id);
-    }
-  };
-
-  const fetchCampaigns = async (brandId: string) => {
-    const res = await api.get(`/campaigns?brandId=${brandId}`);
+    const res = await api.get(`/campaigns?brandId=${activeBrand.id}`);
     setCampaigns(res.data);
   };
 
   useEffect(() => {
-    fetchBrands();
-  }, []);
-
-  useEffect(() => {
-    if (brandId) {
-      fetchCampaigns(brandId);
-    }
-  }, [brandId]);
+    fetchCampaigns();
+  }, [activeBrand]);
 
   const createCampaign = async () => {
-    if (!name || !brandId) return;
+    if (!name || !activeBrand) return;
 
     await api.post("/campaigns", {
       name,
-      brandId,
+      brandId: activeBrand.id,
     });
 
     setName("");
-    fetchCampaigns(brandId);
+    fetchCampaigns();
   };
 
   return (
     <div className="space-y-6">
+      {/* Create Campaign */}
+
       <Card className="p-6 space-y-4">
         <h2 className="text-lg font-semibold">Create Campaign</h2>
-
-        <select
-          value={brandId}
-          onChange={(e) => setBrandId(e.target.value)}
-          className="border rounded p-2 w-full"
-        >
-          {brands.map((brand) => (
-            <option key={brand.id} value={brand.id}>
-              {brand.name}
-            </option>
-          ))}
-        </select>
 
         <Input
           placeholder="Campaign name"
@@ -71,17 +48,20 @@ export function CampaignsPage() {
           onChange={(e) => setName(e.target.value)}
         />
 
-        <AIStrategistCard />
-
-        <AIPostGenerator campaignName="Summer Launch" />
-
         <Button onClick={createCampaign}>Create Campaign</Button>
       </Card>
 
+      {/* AI Strategist */}
+
+      <AIStrategistCard />
+
+      {/* Campaign List */}
+      <h1 className="text-xl font-semibold">{activeBrand?.name} Campaigns</h1>
       <div className="grid grid-cols-3 gap-6">
         {campaigns.map((campaign) => (
           <Card key={campaign.id} className="p-6">
             <h3 className="font-semibold">{campaign.name}</h3>
+
             <p className="text-sm text-gray-500">Status: {campaign.status}</p>
           </Card>
         ))}
